@@ -28,36 +28,28 @@ input[type="text"] {
   width: 300px; /* Fixed width for better alignment */
 }
 
-.coin-info {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  margin-bottom: 10px;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+.dashboard {
+  display: grid;
+  background-color: yellow;
+  margin-left: 25%;
 }
 
-.coin-info img {
-  width: 50px;
-  height: 50px;
-  margin-right: 20px;
-}
-
-.coin-info h3 {
-  margin-left: auto;
-  color: #333;
-}
-
-/* Responsiveness */
+/* Adjusting the layout for devices with a width of less than 768px */
 @media (max-width: 768px) {
-  .coin-info {
-    flex-direction: column;
-    align-items: center;
+  .sidenav,
+  .dashboard {
+    width: 100%; /* Full width */
+    margin-left: 0; /* Remove margin */
   }
 
-  .coin-info img {
-    margin-bottom: 10px;
+  /* Optional: Hide sidebar on very small screens */
+  @media (max-width: 480px) {
+    .sidenav {
+      width: 0; /* Hide sidebar */
+    }
+    
+    .main-content {
+      margin-left: 0; /* Expand main content to full width */
+    }
   }
 }

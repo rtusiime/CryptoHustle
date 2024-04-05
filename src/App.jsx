@@ -2,6 +2,7 @@ import { useEffect, useState, useMemo } from 'react';
 import './App.css';
 import CoinInfo from './components/CoinInfo';
 import { fetchAllCoins } from './api'; // Assuming you've created an API utility file.
+import SideNav from "./components/SideNav";
 
 function App() {
   const [coinsList, setCoinsList] = useState([]);
@@ -28,20 +29,23 @@ function App() {
   return (
     <>
       <div className='whole-page'>
-        <h1>CryptoHustle</h1>
-        <input
-          type='text'
-          placeholder='Search for a coin'
-          onChange={e => setSearchInput(e.target.value)} />
-        <div>
-          {isLoading ? <p>Loading...</p> : filteredCoinData.map((coin, index) => (
-            <CoinInfo
-              key={coin.Id || index}
-              image={coin.ImageUrl}
-              name={coin.FullName}
-              symbol={coin.Symbol}
-            />
-          ))}
+        <SideNav />
+        <div className='dashboard'>
+          <h1>CryptoHustle</h1>
+          <input
+            type='text'
+            placeholder='Search for a coin'
+            onChange={e => setSearchInput(e.target.value)} />
+          <div>
+            {isLoading ? <p>Loading...</p> : filteredCoinData.map((coin, index) => (
+              <CoinInfo
+                key={coin.Id || index}
+                image={coin.ImageUrl}
+                name={coin.FullName}
+                symbol={coin.Symbol}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </>

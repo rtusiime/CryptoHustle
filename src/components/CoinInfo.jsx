@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import './CoinInfo.css';
 import { fetchCoinPrice } from '../api'; // Implement this function in an API utility file.
 
 const CoinInfo = React.memo(({ image, name, symbol }) => {
@@ -19,14 +20,14 @@ const CoinInfo = React.memo(({ image, name, symbol }) => {
 
     return (
         <div className='coin-info'>
-            <li className='main-list' key={symbol}>
+            <div className='main-list' key={symbol}>
                 <img
                     className='icons'
                     src={`https://www.cryptocompare.com${image}`}
                     alt={`Icon for ${name}`} />
-                {name} <span className='tab'></span>
+                <h3>{name}</h3>
                 <h3>${price} USD </h3>
-            </li>
+            </div>
         </div>
     );
 });
