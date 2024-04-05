@@ -1,0 +1,32 @@
+.coin-item {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex; /* For better layout */
+    align-items: center;
+  }
+  
+  .coin-icon {
+    width: 40px;
+    height: 40px;
+    margin-right: 20px;
+  }
+  
+  .coin-content {
+    text-align: left; /* Align text to the left */
+  }
+  
+  .coin-content h2 {
+    margin-bottom: 5px;
+    font-size: 1.2rem;
+  }
+  
+  .coin-symbol {
+    color: #666;
+  }
+  
+  .coin-price {
+    font-weight: bold;
+  }
+  

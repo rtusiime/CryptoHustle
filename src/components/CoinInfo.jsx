@@ -1,38 +1,34 @@
-import { react, useEffect, useState } from 'react';
-const API_KEY = import.meta.env.VITE_APP_API_KEY;
+import React, { useEffect, useState } from 'react';
+import { fetchCoinPrice } from '../api'; // Implement this function in an API utility file.
 
-const CoinInfo = ({ image, name, symbol }) => {
-    console.log()
+const CoinInfo = React.memo(({ image, name, symbol }) => {
     const [price, setPrice] = useState(null);
 
-    useEffect (() => {
-        const fetchCoinPrice = async () => {
-            const response = await fetch(
-                `https://min-api.cryptocompare.com/data/price?fsym=${symbol}&tsyms=USD&api_key=${API_KEY}`
-            );
-            const data = await response.json();
-            setPrice(data.USD);
+    useEffect(() => {
+        const fetchPrice = async () => {
+            const price = await fetchCoinPrice(symbol);
+            setPrice(price);
         };
 
-        fetchCoinPrice().catch(console.error);
+        fetchPrice();
     }, [symbol]);
+
+    if (!price) {
+        return null;
+    }
 
     return (
         <div className='coin-info'>
-            {price ? (
-                <li className='main-list' key={symbol}>
-                    <img
-                        className='icons'
-                        src={`https://www.cryptocompare.com${image}`}
-                        alt={`Small icon for ${name} crypto coin`} />
-                    {name} <span className='tab'></span>
-                   <h3>${price} USD </h3> 
-                </li>
-
-            ) : null
-            }
+            <li className='main-list' key={symbol}>
+                <img
+                    className='icons'
+                    src={`https://www.cryptocompare.com${image}`}
+                    alt={`Icon for ${name}`} />
+                {name} <span className='tab'></span>
+                <h3>${price} USD </h3>
+            </li>
         </div>
     );
+});
 
-}
 export default CoinInfo;

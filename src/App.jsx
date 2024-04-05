@@ -1,44 +1,29 @@
-import { useEffect, useState } from 'react'
-import './App.css'
-const API_KEY = import.meta.env.VITE_APP_API_KEY;
+import { useEffect, useState, useMemo } from 'react';
+import './App.css';
 import CoinInfo from './components/CoinInfo';
-
-
+import { fetchAllCoins } from './api'; // Assuming you've created an API utility file.
 
 function App() {
-  const [list, setList] = useState(null);
-  const [filteredResults, setFilteredResults] = useState([]);
+  const [coinsList, setCoinsList] = useState([]);
   const [searchInput, setSearchInput] = useState('');
-
-  const searchItems = searchValue => {
-    setSearchInput(searchValue);
-    if (searchValue !== "") {
-      const filteredData = Object.keys(list.Data).filter((item) =>
-        Object.values(list.Data[item])
-          .join("")
-          .toLowerCase()
-          .includes(searchValue.toLowerCase())
-      )
-      setFilteredResults(filteredData);
-    } else {
-      setFilteredResults(Object.keys(list.Data));
-    }
-  };
-
-
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchAllCoinData = async () => {
-      const response = await fetch(
-        `https://min-api.cryptocompare.com/data/all/coinlist?&api_key=${API_KEY}`
-      );
-      const data = await response.json();
-      setList(data);
-      console.log(data);
+      setIsLoading(true);
+      const coinsArray = await fetchAllCoins();
+      setIsLoading(false);
+      setCoinsList(coinsArray || []);
     };
 
-    fetchAllCoinData().catch(console.error);
+    fetchAllCoinData();
   }, []);
+
+  const filteredCoinData = useMemo(() => (
+    searchInput
+      ? coinsList.filter(coin => coin.FullName.toLowerCase().includes(searchInput.toLowerCase()))
+      : coinsList
+  ), [coinsList, searchInput]);
 
   return (
     <>
@@ -47,32 +32,20 @@ function App() {
         <input
           type='text'
           placeholder='Search for a coin'
-          onChange={(inputString) => searchItems(inputString.target.value)} />
-        <ul>
-          {searchInput.length > 0
-            ? filteredResults.map((coin) =>
-              list.Data[coin].PlatformType === "blockchain" ?
-                <CoinInfo
-                  image={list.Data[coin].ImageUrl}
-                  name={list.Data[coin].FullName}
-                  symbol={list.Data[coin].Symbol}
-                />
-                : null
-            )
-            : list && Object.entries(list.Data).map(([coin]) =>
-              list.Data[coin].PlatformType === "blockchain" ?
-                <CoinInfo
-                  image={list.Data[coin].ImageUrl}
-                  name={list.Data[coin].FullName}
-                  symbol={list.Data[coin].Symbol}
-                />
-                : null
-            )}
-        </ul>
+          onChange={e => setSearchInput(e.target.value)} />
+        <div>
+          {isLoading ? <p>Loading...</p> : filteredCoinData.map((coin, index) => (
+            <CoinInfo
+              key={coin.Id || index}
+              image={coin.ImageUrl}
+              name={coin.FullName}
+              symbol={coin.Symbol}
+            />
+          ))}
+        </div>
       </div>
-
     </>
-  )
+  );
 }
 
 export default App;

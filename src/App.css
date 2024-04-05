@@ -1,3 +1,4 @@
+/* App.css */
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -5,7 +6,6 @@
   text-align: center;
 }
 
-/* Targets the whole page or app container */
 .whole-page {
   font-family: 'Arial', sans-serif;
   background-color: #f0f2f5;
@@ -13,60 +13,51 @@
   min-height: 100vh;
 }
 
-/* Targets the main heading (title) of your app */
 .whole-page h1 {
   color: #333;
   text-align: center;
 }
 
-/* Styles for the search input */
 input[type="text"] {
   display: block;
   margin: 20px auto;
   padding: 10px;
   font-size: 16px;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 20px; /* Make the input rounder */
+  width: 300px; /* Fixed width for better alignment */
 }
 
-/* Styles for the list containing your items (e.g., cryptocurrencies) */
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-/* Styles for each item in the list */
-ul li {
-  background-color: #fff;
+.coin-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
   margin-bottom: 10px;
-  padding: 15px;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Additional styles for links or buttons you might have */
-a, button {
-  color: #007bff;
-  text-decoration: none;
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-}
-
-/* Example of a class that might be applied to an item or component on hover */
-ul li:hover {
-  background-color: #e9ecef;
-}
-
-/* Styles for images, if your items include images */
-img {
-  max-width: 100%;
-  height: auto;
+.coin-info img {
+  width: 50px;
+  height: 50px;
+  margin-right: 20px;
 }
 
 .coin-info h3 {
-  color: black;
-  font-size: 1.5rem;
-  font-weight:1000;
+  margin-left: auto;
+  color: #333;
 }
 
+/* Responsiveness */
+@media (max-width: 768px) {
+  .coin-info {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .coin-info img {
+    margin-bottom: 10px;
+  }
+}
