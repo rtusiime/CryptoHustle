@@ -34,6 +34,19 @@ input[type="text"] {
   margin-left: 25%;
 }
 
+nav {
+  position: fixed; 
+  top: 0; 
+  right: 0; 
+}
+
+.home-link 
+{
+  border:1px dotted white;
+  background:#1d1f1d;
+  width:75px;
+}
+
 /* Adjusting the layout for devices with a width of less than 768px */
 @media (max-width: 768px) {
   .sidenav,
