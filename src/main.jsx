@@ -15,8 +15,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path='/' element={<Layout />}>
           <Route index={true} element={<App />} />
           <Route index={false} path='/coinDetails/:symbol' element={<DetailView />} />
-          <Route path='*' element={ <NotFound/>} />
-          </Route>
+        </Route>
+        <Route path='*' element={ <NotFound/>} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
