@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './CoinInfo.css';
 import { fetchCoinPrice } from '../api'; // Implement this function in an API utility file.
+import { Link } from "react-router-dom"; 
 
 const CoinInfo = React.memo(({ image, name, symbol }) => {
     const [price, setPrice] = useState(null);
@@ -20,6 +21,10 @@ const CoinInfo = React.memo(({ image, name, symbol }) => {
 
     return (
         <div className='coin-info'>
+            <Link
+                to={`/coinDetails/${symbol}`}
+                key={symbol}
+            >
             <div className='main-list' key={symbol}>
                 <img
                     className='icons'
@@ -28,6 +33,7 @@ const CoinInfo = React.memo(({ image, name, symbol }) => {
                 <h3>{name}</h3>
                 <h3>${price} USD </h3>
             </div>
+            </Link>
         </div>
     );
 });
