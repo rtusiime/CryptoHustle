@@ -3,16 +3,18 @@ import './CoinInfo.css';
 import { fetchCoinPrice } from '../api'; // Implement this function in an API utility file.
 import { Link } from "react-router-dom"; 
 
+
 const CoinInfo = React.memo(({ image, name, symbol }) => {
     const [price, setPrice] = useState(null);
 
     useEffect(() => {
+        const controller = new AbortController();
         const fetchPrice = async () => {
-            const price = await fetchCoinPrice(symbol);
+            const price = await fetchCoinPrice(symbol, controller.signal);
             setPrice(price);
         };
-
         fetchPrice();
+        return () => controller.abort();
     }, [symbol]);
 
     if (!price) {
